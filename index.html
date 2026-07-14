@@ -154,8 +154,8 @@
 
 <div class="legend">
   <span><i class="chip" style="background:var(--v1)"></i>V1 — crossed centerline, struck V2 head-on</span>
-  <span><i class="chip" style="background:var(--v2)"></i>V2 — westbound in its own lane, struck twice</span>
-  <span><i class="chip" style="background:var(--v3)"></i>V3 — struck V2 after the abrupt stop</span>
+  <span><i class="chip" style="background:var(--v2)"></i>V2 — in its own lane, struck twice</span>
+  <span><i class="chip" style="background:var(--v3)"></i>V3 — right behind V2, rear-ended it</span>
 </div>
 
 <footer>
@@ -179,39 +179,41 @@
   const easeIn  = t => t*t*t;
   const linear  = t => t;
 
-  // V2 westbound, staying in its own lane
+  // V2 westbound: clears the junction, going straight when struck
   const kfV2 = [
-    {t:0,    x:730, y:208, r:205, e:linear},
-    {t:1400, x:565, y:282, r:203, e:linear},           // coming around the curve westbound
-    {t:2600, x:428, y:302, r:196, e:linear},           // in its own lane approaching V1
-    {t:3300, x:474, y:330, r:140, e:easeOut},          // head-on impact: spun back toward intersection
-    {t:4300, x:502, y:378, r:92,  e:easeOut},          // slides into path of Route 2 south leg
-    {t:6300, x:502, y:378, r:92,  e:linear},
-    {t:7100, x:526, y:352, r:68,  e:easeOut},          // impact 2: knocked further
-    {t:9000, x:526, y:352, r:68,  e:linear},
+    {t:0,    x:585, y:600, r:-110, e:linear},
+    {t:1200, x:505, y:412, r:-104, e:linear},
+    {t:1900, x:462, y:328, r:-140, e:linear},          // through the junction
+    {t:2300, x:418, y:303, r:-172, e:linear},          // past the merge
+    {t:2600, x:380, y:300, r:-180, e:linear},          // going straight in its own lane
+    {t:3300, x:398, y:306, r:-160, e:easeOut},         // head-on impact: shoved back, abrupt stop
+    {t:6300, x:398, y:306, r:-160, e:linear},
+    {t:7100, x:382, y:301, r:-170, e:easeOut},         // rear-ended by V3, nudged forward
+    {t:9000, x:382, y:301, r:-170, e:linear},
   ];
   // V1 eastbound, drifting left across the centerline into V2's lane
   const kfV1 = [
     {t:0,    x:70,  y:328, r:0,   e:linear},
-    {t:1600, x:230, y:324, r:-4,  e:linear},           // starting to drift left
-    {t:2600, x:344, y:304, r:-11, e:linear},           // fully in the oncoming lane
-    {t:3300, x:356, y:300, r:-16, e:easeOut},          // head-on impact stops V1 in V2's lane
-    {t:9000, x:356, y:300, r:-16, e:linear},
+    {t:1600, x:200, y:324, r:-4,  e:linear},           // starting to drift left
+    {t:2600, x:310, y:304, r:-11, e:linear},           // fully in the oncoming lane
+    {t:3300, x:324, y:300, r:-14, e:easeOut},          // head-on impact stops V1 in V2's lane
+    {t:9000, x:324, y:300, r:-14, e:linear},
   ];
-  // V3 coming up Route 2 from the south toward the intersection
+  // V3 following directly behind V2 on the same path
   const kfV3 = [
-    {t:0,    x:596, y:620, r:-108, e:linear},
-    {t:4300, x:560, y:500, r:-104, e:linear},
-    {t:6300, x:522, y:432, r:-100, e:easeIn},          // can't stop in time
-    {t:7100, x:510, y:406, r:-94,  e:easeOut},         // strikes V2
-    {t:9000, x:510, y:406, r:-94,  e:linear},
+    {t:0,    x:648, y:700, r:-110, e:linear},
+    {t:1800, x:540, y:470, r:-106, e:linear},
+    {t:3600, x:470, y:338, r:-142, e:linear},          // still coming through the junction
+    {t:4800, x:440, y:310, r:-168, e:linear},          // onto the straight as V2 sits stopped
+    {t:6300, x:420, y:306, r:-176, e:easeIn},          // no room to stop
+    {t:7100, x:410, y:304, r:-178, e:easeOut},         // strikes the rear of V2
+    {t:9000, x:410, y:304, r:-178, e:linear},
   ];
-
   const phases = [
-    {t:0,    badge:'1 / 4', text:'V1 (red) is eastbound on NY Route 2 and drifts left across the centerline. V2 (blue) is coming the other way in its own lane. V3 (yellow) is coming up Route 2 toward the intersection.'},
-    {t:2650, badge:'2 / 4', text:'First impact — V1 strikes V2 head-on in V2\u2019s lane. V2 is spun back toward the intersection.'},
-    {t:3900, badge:'3 / 4', text:'V2 slides across the junction, coming to rest in the path of Route 2 traffic. V3 approaches with little time to react.'},
-    {t:6350, badge:'4 / 4', text:'Second impact — V3 can\u2019t stop and strikes V2, knocking it further. All three vehicles come to rest; all were later towed.'},
+    {t:0,    badge:'1 / 4', text:'V2 (blue) has come through the junction and is going straight westbound in its own lane, with V3 (yellow) right behind. V1 (red), eastbound, drifts left across the centerline.'},
+    {t:2650, badge:'2 / 4', text:'First impact — past the merge, V1 strikes V2 head-on in V2\u2019s lane, stopping it abruptly.'},
+    {t:3900, badge:'3 / 4', text:'V3, following directly behind V2, has no time or distance to stop.'},
+    {t:6350, badge:'4 / 4', text:'Second impact — V3 strikes the rear of V2. All three vehicles come to rest; all were later towed.'},
   ];
   const DURATION = 9000;
 
@@ -243,8 +245,8 @@
     apply(V2,pose(kfV2,t));
     apply(V3,pose(kfV3,t));
     // reset flash base transforms then overlay
-    F1.setAttribute('transform','translate(400 300)');
-    F2.setAttribute('transform','translate(512 396)');
+    F1.setAttribute('transform','translate(358 300)');
+    F2.setAttribute('transform','translate(396 305)');
     flash(F1,t,2650);
     flash(F2,t,6350);
     captionFor(t);
