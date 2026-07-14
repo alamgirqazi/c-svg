@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crash Sequence — NY Route 2 &amp; Main Street</title>
+<style>
+  :root{
+    --bg:#e8e4da;
+    --asphalt:#4a4d52;
+    --line:#f2ead8;
+    --ink:#26282b;
+    --v1:#c0392b;
+    --v2:#2d5f8a;
+    --v3:#c88a1f;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg);
+    font-family:"Avenir Next","Segoe UI",system-ui,sans-serif;
+    color:var(--ink);
+    display:flex;flex-direction:column;align-items:center;
+    min-height:100vh;padding:16px 12px 32px;
+  }
+  header{width:100%;max-width:720px;margin-bottom:10px}
+  header h1{font-size:1.05rem;font-weight:700;letter-spacing:.02em}
+  header p{font-size:.78rem;color:#6b6d70;margin-top:2px}
+  .stage{
+    width:100%;max-width:720px;
+    background:#dcd7ca;
+    border:1px solid #c4bfb2;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+  }
+  svg{display:block;width:100%;height:auto}
+  .caption{
+    width:100%;max-width:720px;
+    background:var(--ink);color:#f4f1ea;
+    border-radius:8px;
+    padding:12px 14px;margin-top:10px;
+    font-size:.9rem;line-height:1.4;
+    min-height:64px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .caption .step{
+    flex-shrink:0;
+    background:#f4f1ea;color:var(--ink);
+    font-weight:800;font-size:.75rem;
+    border-radius:999px;padding:4px 10px;
+    letter-spacing:.05em;
+  }
+  .controls{
+    width:100%;max-width:720px;
+    display:flex;gap:8px;margin-top:10px;
+  }
+  button{
+    flex:1;
+    font:inherit;font-weight:700;font-size:.9rem;
+    padding:12px;border:none;border-radius:8px;
+    background:var(--ink);color:#f4f1ea;
+    cursor:pointer;
+  }
+  button.secondary{background:transparent;border:2px solid var(--ink);color:var(--ink)}
+  button:active{transform:translateY(1px)}
+  .legend{
+    width:100%;max-width:720px;
+    display:flex;gap:14px;margin-top:12px;flex-wrap:wrap;
+    font-size:.78rem;color:#55575a;
+  }
+  .legend span{display:flex;align-items:center;gap:6px}
+  .chip{width:20px;height:11px;border-radius:2px;display:inline-block}
+  footer{width:100%;max-width:720px;margin-top:14px;font-size:.72rem;color:#8a8c8e;line-height:1.5}
+  @media (prefers-reduced-motion: reduce){
+    /* animation is user-initiated via Play; no autoplay */
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Chain-Reaction Crash — NY Route 2 at Main Street</h1>
+  <p>Animated interpretation of the police diagram · not to scale</p>
+</header>
+
+<div class="stage">
+<svg viewBox="0 0 900 640" xmlns="http://www.w3.org/2000/svg" aria-label="Animated crash diagram">
+  <!-- grass -->
+  <rect width="900" height="640" fill="#cfd6bd"/>
+
+  <!-- roads -->
+  <!-- Route 2 west leg + Main St (one continuous curve W to NE) -->
+  <path id="roadMain" d="M -10 320 L 400 320 C 500 320 560 290 660 240 L 910 130"
+        stroke="#4a4d52" stroke-width="96" fill="none" stroke-linecap="square"/>
+  <!-- Route 2 south leg -->
+  <path id="roadSouth" d="M 470 330 C 520 400 560 480 600 650"
+        stroke="#4a4d52" stroke-width="90" fill="none" stroke-linecap="square"/>
+
+  <!-- center lines -->
+  <path d="M -10 320 L 400 320 C 500 320 560 290 660 240 L 910 130"
+        stroke="#f2ead8" stroke-width="3" fill="none" stroke-dasharray="26 20"/>
+  <path d="M 470 330 C 520 400 560 480 600 650"
+        stroke="#f2ead8" stroke-width="3" fill="none" stroke-dasharray="26 20"/>
+
+  <!-- road labels -->
+  <text x="60" y="380" font-size="17" fill="#3d3f42" font-weight="600">NY State Route 2</text>
+  <text x="700" y="215" font-size="17" fill="#3d3f42" font-weight="600" transform="rotate(-24 700 215)">Main Street</text>
+  <text x="588" y="540" font-size="16" fill="#3d3f42" font-weight="600" transform="rotate(72 588 540)">NY State Route 2</text>
+
+  <!-- compass -->
+  <g transform="translate(845,55)" font-size="13" fill="#3d3f42" font-weight="700" text-anchor="middle">
+    <circle r="24" fill="none" stroke="#3d3f42" stroke-width="1.5"/>
+    <line x1="0" y1="-16" x2="0" y2="16" stroke="#3d3f42" stroke-width="1.5"/>
+    <line x1="-16" y1="0" x2="16" y2="0" stroke="#3d3f42" stroke-width="1.5"/>
+    <text y="-30">N</text>
+  </g>
+
+  <!-- impact flashes -->
+  <g id="flash1" opacity="0" transform="translate(365,320)">
+    <path d="M0,-26 L7,-8 L26,-9 L11,3 L18,22 L0,11 L-18,22 L-11,3 L-26,-9 L-7,-8 Z" fill="#ffd23e" stroke="#e8560f" stroke-width="3"/>
+  </g>
+  <g id="flash2" opacity="0" transform="translate(520,405)">
+    <path d="M0,-26 L7,-8 L26,-9 L11,3 L18,22 L0,11 L-18,22 L-11,3 L-26,-9 L-7,-8 Z" fill="#ffd23e" stroke="#e8560f" stroke-width="3"/>
+  </g>
+
+  <!-- vehicles: 56x26 rects centered at origin -->
+  <g id="carV2">
+    <rect x="-28" y="-13" width="56" height="26" rx="5" fill="#2d5f8a" stroke="#1b3a55" stroke-width="2"/>
+    <rect x="6" y="-9" width="10" height="18" rx="2" fill="#bcd4e6"/>
+    <text y="5" font-size="13" fill="#fff" font-weight="800" text-anchor="middle">V2</text>
+  </g>
+  <g id="carV1">
+    <rect x="-28" y="-13" width="56" height="26" rx="5" fill="#c0392b" stroke="#7c221a" stroke-width="2"/>
+    <rect x="6" y="-9" width="10" height="18" rx="2" fill="#f2c4bd"/>
+    <text y="5" font-size="13" fill="#fff" font-weight="800" text-anchor="middle">V1</text>
+  </g>
+  <g id="carV3">
+    <rect x="-28" y="-13" width="56" height="26" rx="5" fill="#c88a1f" stroke="#7d5510" stroke-width="2"/>
+    <rect x="6" y="-9" width="10" height="18" rx="2" fill="#f5e3bb"/>
+    <text y="5" font-size="13" fill="#26282b" font-weight="800" text-anchor="middle">V3</text>
+  </g>
+</svg>
+</div>
+
+<div class="caption">
+  <span class="step" id="stepBadge">READY</span>
+  <span id="captionText">Press Play to watch the sequence.</span>
+</div>
+
+<div class="controls">
+  <button id="playBtn">▶ Play</button>
+  <button id="stepBtn" class="secondary">Step ›</button>
+</div>
+
+<div class="legend">
+  <span><i class="chip" style="background:var(--v1)"></i>V1 — crossed centerline, struck V2 head-on</span>
+  <span><i class="chip" style="background:var(--v2)"></i>V2 — westbound in its own lane, struck twice</span>
+  <span><i class="chip" style="background:var(--v3)"></i>V3 — struck V2 after the abrupt stop</span>
+</div>
+
+<footer>
+  Based on the officer's diagram in NYSP report #2026-6351. Positions, angles and timing are approximate — the original diagram is marked "not to scale."
+</footer>
+
+<script>
+(function(){
+  const V1 = document.getElementById('carV1');
+  const V2 = document.getElementById('carV2');
+  const V3 = document.getElementById('carV3');
+  const F1 = document.getElementById('flash1');
+  const F2 = document.getElementById('flash2');
+  const badge = document.getElementById('stepBadge');
+  const cap = document.getElementById('captionText');
+  const playBtn = document.getElementById('playBtn');
+  const stepBtn = document.getElementById('stepBtn');
+
+  // keyframes: t (ms), x, y, r (deg). Linear segments with easing per segment.
+  const easeOut = t => 1-Math.pow(1-t,3);
+  const easeIn  = t => t*t*t;
+  const linear  = t => t;
+
+  // V2 westbound, staying in its own lane
+  const kfV2 = [
+    {t:0,    x:730, y:208, r:205, e:linear},
+    {t:1400, x:565, y:282, r:203, e:linear},           // coming around the curve westbound
+    {t:2600, x:428, y:302, r:196, e:linear},           // in its own lane approaching V1
+    {t:3300, x:474, y:330, r:140, e:easeOut},          // head-on impact: spun back toward intersection
+    {t:4300, x:502, y:378, r:92,  e:easeOut},          // slides into path of Route 2 south leg
+    {t:6300, x:502, y:378, r:92,  e:linear},
+    {t:7100, x:526, y:352, r:68,  e:easeOut},          // impact 2: knocked further
+    {t:9000, x:526, y:352, r:68,  e:linear},
+  ];
+  // V1 eastbound, drifting left across the centerline into V2's lane
+  const kfV1 = [
+    {t:0,    x:70,  y:328, r:0,   e:linear},
+    {t:1600, x:230, y:324, r:-4,  e:linear},           // starting to drift left
+    {t:2600, x:344, y:304, r:-11, e:linear},           // fully in the oncoming lane
+    {t:3300, x:356, y:300, r:-16, e:easeOut},          // head-on impact stops V1 in V2's lane
+    {t:9000, x:356, y:300, r:-16, e:linear},
+  ];
+  // V3 coming up Route 2 from the south toward the intersection
+  const kfV3 = [
+    {t:0,    x:596, y:620, r:-108, e:linear},
+    {t:4300, x:560, y:500, r:-104, e:linear},
+    {t:6300, x:522, y:432, r:-100, e:easeIn},          // can't stop in time
+    {t:7100, x:510, y:406, r:-94,  e:easeOut},         // strikes V2
+    {t:9000, x:510, y:406, r:-94,  e:linear},
+  ];
+
+  const phases = [
+    {t:0,    badge:'1 / 4', text:'V1 (red) is eastbound on NY Route 2 and drifts left across the centerline. V2 (blue) is coming the other way in its own lane. V3 (yellow) is coming up Route 2 toward the intersection.'},
+    {t:2650, badge:'2 / 4', text:'First impact — V1 strikes V2 head-on in V2\u2019s lane. V2 is spun back toward the intersection.'},
+    {t:3900, badge:'3 / 4', text:'V2 slides across the junction, coming to rest in the path of Route 2 traffic. V3 approaches with little time to react.'},
+    {t:6350, badge:'4 / 4', text:'Second impact — V3 can\u2019t stop and strikes V2, knocking it further. All three vehicles come to rest; all were later towed.'},
+  ];
+  const DURATION = 9000;
+
+  function pose(kf, t){
+    if(t <= kf[0].t) return kf[0];
+    for(let i=1;i<kf.length;i++){
+      if(t <= kf[i].t){
+        const a=kf[i-1], b=kf[i];
+        const p=b.e((t-a.t)/(b.t-a.t));
+        return {x:a.x+(b.x-a.x)*p, y:a.y+(b.y-a.y)*p, r:a.r+(b.r-a.r)*p};
+      }
+    }
+    return kf[kf.length-1];
+  }
+  function apply(el,p){ el.setAttribute('transform',`translate(${p.x} ${p.y}) rotate(${p.r})`); }
+  function flash(el,t,at){
+    const d = t-at;
+    el.setAttribute('opacity', (d>=0 && d<520) ? String(1-d/520) : '0');
+    if(d>=0&&d<520){const s=1+d/520*.9;el.setAttribute('transform',el.getAttribute('transform').replace(/ scale\([^)]*\)/,'')+` scale(${s})`);}
+  }
+  function captionFor(t){
+    let ph = phases[0];
+    for(const p of phases){ if(t>=p.t) ph=p; }
+    badge.textContent = ph.badge;
+    cap.textContent = ph.text;
+  }
+  function render(t){
+    apply(V1,pose(kfV1,t));
+    apply(V2,pose(kfV2,t));
+    apply(V3,pose(kfV3,t));
+    // reset flash base transforms then overlay
+    F1.setAttribute('transform','translate(400 300)');
+    F2.setAttribute('transform','translate(512 396)');
+    flash(F1,t,2650);
+    flash(F2,t,6350);
+    captionFor(t);
+  }
+
+  let raf=null, start=null, playing=false;
+  function stop(){ if(raf)cancelAnimationFrame(raf); raf=null; playing=false; playBtn.textContent='↺ Replay'; }
+  function play(){
+    if(playing) return;
+    playing=true; playBtn.textContent='⏸ Playing…'; start=null;
+    function frame(ts){
+      if(start===null) start=ts;
+      const t=ts-start;
+      render(Math.min(t,DURATION));
+      if(t<DURATION){ raf=requestAnimationFrame(frame); } else { stop(); }
+    }
+    raf=requestAnimationFrame(frame);
+  }
+  playBtn.addEventListener('click',()=>{ stop(); render(0); play(); });
+
+  // step mode for reduced motion / careful review
+  let stepIdx=-1;
+  const stepTimes=[0,3350,4600,7300];
+  stepBtn.addEventListener('click',()=>{
+    stop(); playBtn.textContent='▶ Play';
+    stepIdx=(stepIdx+1)%stepTimes.length;
+    render(stepTimes[stepIdx]);
+  });
+
+  render(0);
+})();
+</script>
+</body>
+</html>
